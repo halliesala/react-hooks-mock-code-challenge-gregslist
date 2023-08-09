@@ -53,6 +53,14 @@ header h1 {
   border-radius: 3px;
 }
 
+.sortbar {
+  flex: 1 1 auto;
+  margin: 0 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+
 main {
   padding: 0 1rem;
   max-width: 1200px;
