@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ListingCard from "./ListingCard";
 import { COMPARE_FUNCS } from './compare_funcs'
 
 
-function ListingsContainer({ searchTerm, sortBy }) {
+function ListingsContainer({ listings, setListings, searchTerm, sortBy }) {
 
-  const [listings, setListings] = useState([]);
 
   useEffect(() => {
       const compareFunc = COMPARE_FUNCS?.[sortBy?.field]?.[sortBy?.order];
       const sortedListings = listings.toSorted(compareFunc);
-      console.log(sortedListings)
       setListings(sortedListings);
     }
     ,
     [sortBy]
   )
 
-  useEffect(() => {
-    fetch('http://localhost:6001/listings')
-      .then(data => data.json())
-      .then(data => setListings(data));
-  }
-    ,
-    []
-  )
+  
 
   function deleteListing(id) {
-    console.log(`TODO: Delete listing with id ${id}`);
     fetch(`http://localhost:6001/listings/${id}`, { method: 'DELETE' })
       .then(() => {
         const idx = listings.findIndex(listing => listing.id === id);
